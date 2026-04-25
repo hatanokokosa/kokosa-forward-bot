@@ -124,6 +124,8 @@ dist
 
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
+.zed
+.codex
 
 # yarn v3
 .pnp.*
@@ -141,4 +143,3 @@ vite.config.ts.timestamp-*
 # Wrangler
 wrangler.toml
 .wrangler
-
