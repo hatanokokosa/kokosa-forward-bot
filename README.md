@@ -46,6 +46,9 @@ ENV_ADMIN_UID = "your telegram ID"
 
 # Multiple API keys for rotation
 ENV_GEMINI_API_KEY = "use ',' to split"
+
+[triggers]
+crons = ["*/30 * * * *"]
 ```
 
 4. Deploy:
@@ -79,6 +82,11 @@ Admin:
 - `/untrust`
 - `/status`
 - `/check`
+- `/rss_add`
+- `/rss_list`
+- `/rss_remove`
+- `/rss_refresh`
+- `/rss_title`
 - `/lang`
 
 Guest:
@@ -92,3 +100,5 @@ Guest:
 - `wrangler.toml` should stay local; this repo already ignores it.
 - Prefer `npx wrangler ...` under Node.js instead of `bunx wrangler ...`.
 - Languages live under `src/i18n/`, one file per language.
+- RSS checks run from Cloudflare Cron every 30 minutes. Use
+  `/rss_refresh [id]` to test manually.

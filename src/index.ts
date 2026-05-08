@@ -4,6 +4,7 @@ import {
   handleCallbackQuery,
 } from "./handlers/admin/index.ts";
 import { handleGuestMessage } from "./handlers/guest.ts";
+import { refreshRssFeeds } from "./rss.ts";
 import { createTelegramClient } from "./telegram.ts";
 import type {
   Env,
@@ -26,6 +27,11 @@ const ADMIN_COMMANDS: TelegramCommand[] = [
   },
   { command: "status", description: "Check user status (reply to message)" },
   { command: "check", description: "AI check text/image (reply to message)" },
+  { command: "rss_add", description: "Add RSS feed" },
+  { command: "rss_list", description: "List RSS feeds" },
+  { command: "rss_remove", description: "Remove RSS feed" },
+  { command: "rss_refresh", description: "Refresh RSS feeds now" },
+  { command: "rss_title", description: "Edit RSS feed title" },
   { command: "lang", description: "Change language" },
 ];
 
@@ -249,5 +255,19 @@ export default {
       default:
         return new Response("Not Found", { status: 404 });
     }
+  },
+  async scheduled(
+    _controller: ScheduledController,
+    env: Env,
+    ctx: ExecutionContext,
+  ): Promise<void> {
+    const telegram = createTelegramClient(env.ENV_BOT_TOKEN);
+
+    ctx.waitUntil(
+      refreshRssFeeds(env.kfb, telegram, env).catch((error) => {
+        const message = error instanceof Error ? error.message : String(error);
+        console.error(`[RSS] Scheduled refresh failed: ${message}`);
+      }),
+    );
   },
 };

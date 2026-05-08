@@ -206,6 +206,26 @@ export interface ModerationResult {
   reason: string | null;
 }
 
+export interface RssFeed {
+  id: string;
+  url: string;
+  title: string;
+  sourceTitle: string;
+  enabled: boolean;
+  createdAt: number;
+  updatedAt?: number;
+  lastCheckedAt?: number;
+  lastError?: string;
+}
+
+export interface RssItem {
+  title: string;
+  link: string;
+  guid?: string;
+  publishedAt?: string;
+  content?: string;
+}
+
 export type TranslationVariables = Record<string, string | number>;
 export type LanguageCode = "en" | "zh";
 

@@ -12,6 +12,23 @@ const zh = {
     "消息总数: {totalRelays}\n封禁用户: {totalBlocked}\nAI拦截: {aiBlocks}\n",
   api_usage_title: "\nAPI使用情况:\n",
   api_usage_item: "  #{index}: {calls} 次调用 ({masked})\n",
+  rss_add_usage: "用法: /rss_add <url> [标题]",
+  rss_added:
+    "RSS订阅已添加。\nID: {id}\n标题: {title}\n已记录现有条目: {initialItems}\n不会推送历史文章。",
+  rss_error: "RSS错误: {message}",
+  rss_list_empty: "还没有RSS订阅。",
+  rss_list_title: "RSS订阅 ({count}):\n\n",
+  rss_list_item:
+    "ID: {id}\n标题: {title}\nURL: {url}\n状态: {status}\n上次检查: {lastCheckedAt}\n\n",
+  rss_list_item_error: "上次错误: {error}\n\n",
+  rss_remove_usage: "用法: /rss_remove <id>",
+  rss_removed: "RSS订阅已删除: {id}",
+  rss_not_found: "未找到RSS订阅: {id}",
+  rss_title_usage: "用法: /rss_title <id> <标题>",
+  rss_title_updated: "RSS标题已更新。\nID: {id}\n标题: {title}",
+  rss_refresh_done:
+    "RSS刷新完成。\n已检查: {checked}\n已发送: {sent}\n错误: {errors}\n",
+  rss_refresh_error: "\n- {id}: {message}",
   unban_usage: "用法: /unban <用户ID>",
   unbanned: "已解封: {guestId}",
   blocked: "已封禁: {guestId} ({username})",

@@ -4,7 +4,7 @@ import {
   GEMINI_REQUEST_TIMEOUT_MS,
   MEDIA_DOWNLOAD_TIMEOUT_MS,
 } from "./config.ts";
-import type { ModerationResult } from "./types.ts";
+import type { ModerationResult, RssItem } from "./types.ts";
 
 export const MODERATION_STATUS = Object.freeze({
   SAFE: "SAFE",
@@ -97,6 +97,19 @@ SAFE if:
 One word: "SAFE" or "UNSAFE"
 
 Analyze the content:`;
+
+const RSS_SUMMARY_PROMPT = `
+# Role
+RSS article summarizer.
+
+# Rules
+- Output one concise sentence only.
+- Prefer Chinese if the source text is Chinese; otherwise use English.
+- Stay under 80 Chinese characters or 35 English words.
+- Do not mention that the text is from RSS.
+- Do not add bullets, prefixes, or markdown.
+
+Summarize this article item:`;
 
 export async function checkContentSafety(
   text: string | undefined,
@@ -196,6 +209,53 @@ export async function checkImageSafety(
   }
 }
 
+function cleanSummaryText(value: string): string {
+  return value
+    .replace(/^["'“”]+|["'“”]+$/g, "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 500);
+}
+
+function buildRssSummaryInput(item: RssItem): string {
+  const parts = [
+    `Title: ${item.title}`,
+    item.publishedAt ? `Published: ${item.publishedAt}` : "",
+    item.content ? `Content: ${item.content}` : "",
+  ].filter(Boolean);
+
+  return parts.join("\n").slice(0, 3000);
+}
+
+export async function summarizeRssItem(
+  item: RssItem,
+  apiKeys: string | string[] | null,
+  model = GEMINI_MODEL,
+): Promise<string> {
+  if (!apiKeys) {
+    return "AI summary unavailable.";
+  }
+
+  const keys = Array.isArray(apiKeys) ? apiKeys : [apiKeys];
+  const maxRetries = Math.min(keys.length, GEMINI_MAX_RETRIES);
+  const payload = {
+    contents: [
+      {
+        parts: [
+          {
+            text: `${RSS_SUMMARY_PROMPT}\n${JSON.stringify(
+              buildRssSummaryInput(item),
+            )}`,
+          },
+        ],
+      },
+    ],
+  };
+
+  const summary = await callGeminiTextApi(payload, keys, maxRetries, model);
+  return summary || "AI summary unavailable.";
+}
+
 function detectMimeType(imageUrl: string, bytes: Uint8Array): string {
   if (imageUrl.includes(".png")) {
     return "image/png";
@@ -284,6 +344,59 @@ async function callGeminiApi(
   }
 
   return errorResult("Moderation service unavailable");
+}
+
+async function callGeminiTextApi(
+  payload: object,
+  keys: string[],
+  maxRetries: number,
+  model: string,
+): Promise<string | null> {
+  for (let attempt = 0; attempt < maxRetries; attempt += 1) {
+    const apiKey = getNextApiKey(keys);
+    const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
+    try {
+      const response = await fetchWithTimeout(
+        endpoint,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        },
+        GEMINI_REQUEST_TIMEOUT_MS,
+      );
+
+      if (!response.ok) {
+        console.log(
+          `[AI] Summary API error (attempt ${attempt + 1}): ${response.status}`,
+        );
+
+        if (attempt < maxRetries - 1) {
+          continue;
+        }
+
+        return null;
+      }
+
+      const data = (await response.json()) as GeminiResponse;
+      const result = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      return result ? cleanSummaryText(result) : null;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      console.log(
+        `[AI] Summary exception (attempt ${attempt + 1}): ${message}`,
+      );
+
+      if (attempt < maxRetries - 1) {
+        continue;
+      }
+
+      return null;
+    }
+  }
+
+  return null;
 }
 
 export function getApiUsageStats(): Record<string, number> {

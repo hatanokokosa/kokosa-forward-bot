@@ -12,6 +12,23 @@ const en = {
     "Total Relays: {totalRelays}\nBlocked Users: {totalBlocked}\nAI Blocks: {aiBlocks}\n",
   api_usage_title: "\nAPI Usage:\n",
   api_usage_item: "  #{index}: {calls} calls ({masked})\n",
+  rss_add_usage: "Usage: /rss_add <url> [title]",
+  rss_added:
+    "RSS feed added.\nID: {id}\nTitle: {title}\nExisting items recorded: {initialItems}\nNo historical items were sent.",
+  rss_error: "RSS error: {message}",
+  rss_list_empty: "No RSS feeds configured.",
+  rss_list_title: "RSS Feeds ({count}):\n\n",
+  rss_list_item:
+    "ID: {id}\nTitle: {title}\nURL: {url}\nStatus: {status}\nLast checked: {lastCheckedAt}\n\n",
+  rss_list_item_error: "Last error: {error}\n\n",
+  rss_remove_usage: "Usage: /rss_remove <id>",
+  rss_removed: "RSS feed removed: {id}",
+  rss_not_found: "RSS feed not found: {id}",
+  rss_title_usage: "Usage: /rss_title <id> <title>",
+  rss_title_updated: "RSS feed title updated.\nID: {id}\nTitle: {title}",
+  rss_refresh_done:
+    "RSS refresh complete.\nChecked: {checked}\nSent: {sent}\nErrors: {errors}\n",
+  rss_refresh_error: "\n- {id}: {message}",
   unban_usage: "Usage: /unban <ID>",
   unbanned: "Unbanned: {guestId}",
   blocked: "Banned: {guestId} ({username})",

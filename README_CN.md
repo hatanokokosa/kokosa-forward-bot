@@ -44,6 +44,9 @@ ENV_ADMIN_UID = "your telegram ID"
 
 # Multiple API keys for rotation
 ENV_GEMINI_API_KEY = "use ',' to split"
+
+[triggers]
+crons = ["*/30 * * * *"]
 ```
 
 4. 部署：
@@ -77,6 +80,11 @@ nix shell nixpkgs#nodejs -c npx wrangler tail
 - `/untrust`
 - `/status`
 - `/check`
+- `/rss_add`
+- `/rss_list`
+- `/rss_remove`
+- `/rss_refresh`
+- `/rss_title`
 - `/lang`
 
 访客：
@@ -90,3 +98,5 @@ nix shell nixpkgs#nodejs -c npx wrangler tail
 - `wrangler.toml` 只保留在本地即可，仓库已经忽略它。
 - 优先用 Node.js 下的 `npx wrangler ...`，不要用 `bunx wrangler ...`。
 - 多语言文件在 `src/i18n/` 下，每种语言一个文件。
+- RSS 会通过 Cloudflare Cron 每 30 分钟检查一次。测试时可以使用
+  `/rss_refresh [id]` 手动刷新。
