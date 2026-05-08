@@ -60,6 +60,7 @@ async function fetchWithTimeout(
 
 function getNextApiKey(apiKeys: string | string[]): string {
   if (typeof apiKeys === "string") {
+    apiUsageStats[apiKeys] = (apiUsageStats[apiKeys] || 0) + 1;
     return apiKeys;
   }
 
