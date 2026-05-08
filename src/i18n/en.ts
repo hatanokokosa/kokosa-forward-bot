@@ -10,8 +10,6 @@ const en = {
   stats_title: "Statistics:\n\n",
   stats_content:
     "Total Relays: {totalRelays}\nBlocked Users: {totalBlocked}\nAI Blocks: {aiBlocks}\n",
-  api_usage_title: "\nAPI Usage:\n",
-  api_usage_item: "  #{index}: {calls} calls ({masked})\n",
   rss_add_usage: "Usage: /rss_add <url> [title]",
   rss_added:
     "RSS feed added.\nID: {id}\nTitle: {title}\nExisting items recorded: {initialItems}\nNo historical items were sent.",

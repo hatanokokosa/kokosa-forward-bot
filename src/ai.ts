@@ -17,7 +17,6 @@ type ModerationStatus =
   (typeof MODERATION_STATUS)[keyof typeof MODERATION_STATUS];
 
 let apiKeyIndex = 0;
-let apiUsageStats: Record<string, number> = {};
 
 function createModerationResult(
   status: ModerationStatus,
@@ -60,7 +59,6 @@ async function fetchWithTimeout(
 
 function getNextApiKey(apiKeys: string | string[]): string {
   if (typeof apiKeys === "string") {
-    apiUsageStats[apiKeys] = (apiUsageStats[apiKeys] || 0) + 1;
     return apiKeys;
   }
 
@@ -70,10 +68,7 @@ function getNextApiKey(apiKeys: string | string[]): string {
 
   const key = apiKeys[apiKeyIndex % apiKeys.length];
   apiKeyIndex += 1;
-  apiUsageStats[key] = (apiUsageStats[key] || 0) + 1;
-  console.log(
-    `[AI] Using API key #${(apiKeyIndex % apiKeys.length) + 1}, Total uses: ${apiUsageStats[key]}`,
-  );
+  console.log(`[AI] Using API key #${(apiKeyIndex % apiKeys.length) + 1}`);
 
   return key;
 }
@@ -401,10 +396,6 @@ async function callGeminiTextApi(
   }
 
   return null;
-}
-
-export function getApiUsageStats(): Record<string, number> {
-  return { ...apiUsageStats };
 }
 
 export function formatModerationStatus(

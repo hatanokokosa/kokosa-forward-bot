@@ -1,5 +1,3 @@
-import { getApiUsageStats } from "../../ai.ts";
-import { API_KEY_DISPLAY_LENGTH } from "../../config.ts";
 import { buildLanguageKeyboard, isValidUserId, t } from "../../i18n.ts";
 import {
   getBlockedList,
@@ -75,7 +73,6 @@ const cmdList = async (ctx: HandlerContext) => {
 
 const cmdStats = async (ctx: HandlerContext) => {
   const stats = await getStatistics(ctx.kv);
-  const apiStats = getApiUsageStats();
 
   let output = t("stats_title", {}, ctx.lang);
   output += t(
@@ -87,22 +84,6 @@ const cmdStats = async (ctx: HandlerContext) => {
     },
     ctx.lang,
   );
-
-  const apiKeys = Object.keys(apiStats);
-  if (apiKeys.length > 0) {
-    output += t("api_usage_title", {}, ctx.lang);
-    for (const [index, key] of apiKeys.entries()) {
-      output += t(
-        "api_usage_item",
-        {
-          index: index + 1,
-          calls: apiStats[key],
-          masked: `${key.substring(0, API_KEY_DISPLAY_LENGTH)}***`,
-        },
-        ctx.lang,
-      );
-    }
-  }
 
   return sendToAdmin(ctx.telegram, ctx.adminId, output);
 };

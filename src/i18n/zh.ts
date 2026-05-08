@@ -10,8 +10,6 @@ const zh = {
   stats_title: "统计信息:\n\n",
   stats_content:
     "消息总数: {totalRelays}\n封禁用户: {totalBlocked}\nAI拦截: {aiBlocks}\n",
-  api_usage_title: "\nAPI使用情况:\n",
-  api_usage_item: "  #{index}: {calls} 次调用 ({masked})\n",
   rss_add_usage: "用法: /rss_add <url> [标题]",
   rss_added:
     "RSS订阅已添加\nID: {id}\n标题: {title}\n已记录现有条目: {initialItems}\n不会推送历史文章",

@@ -19,5 +19,3 @@ export const TRUST_THRESHOLD = 3;
 export const MOD_CACHE_MIN_LENGTH = 5;
 export const MOD_CACHE_TTL_SECONDS = 86400;
 export const RATE_LIMIT_TTL_SECONDS = 120;
-
-export const API_KEY_DISPLAY_LENGTH = 6;

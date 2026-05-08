@@ -2,7 +2,7 @@ import { XMLParser } from "fast-xml-parser";
 import { parseApiKeys, summarizeRssItem } from "./ai.ts";
 import type { Env, RssFeed, RssItem, TelegramClient } from "./types.ts";
 
-const RSS_FETCH_TIMEOUT_MS = 8000;
+const RSS_FETCH_TIMEOUT_MS = 15000;
 const RSS_MAX_FEEDS = 10;
 const RSS_SEEN_LIMIT = 50;
 const RSS_MAX_ITEMS_PER_REFRESH = 5;
