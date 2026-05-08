@@ -2,6 +2,7 @@ import {
   GEMINI_MAX_RETRIES,
   GEMINI_MODEL,
   GEMINI_REQUEST_TIMEOUT_MS,
+  GEMINI_SUMMARY_REQUEST_TIMEOUT_MS,
   MEDIA_DOWNLOAD_TIMEOUT_MS,
 } from "./config.ts";
 import type { ModerationResult, RssItem } from "./types.ts";
@@ -364,13 +365,15 @@ async function callGeminiTextApi(
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(payload),
         },
-        GEMINI_REQUEST_TIMEOUT_MS,
+        GEMINI_SUMMARY_REQUEST_TIMEOUT_MS,
       );
 
       if (!response.ok) {
         console.log(
           `[AI] Summary API error (attempt ${attempt + 1}): ${response.status}`,
         );
+        const errText = await response.text();
+        console.log(`[AI] Summary details: ${errText.substring(0, 300)}`);
 
         if (attempt < maxRetries - 1) {
           continue;

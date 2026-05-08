@@ -6,7 +6,7 @@ const RSS_FETCH_TIMEOUT_MS = 8000;
 const RSS_MAX_FEEDS = 10;
 const RSS_SEEN_LIMIT = 50;
 const RSS_MAX_ITEMS_PER_REFRESH = 5;
-const RSS_LOCK_TTL_SECONDS = 600;
+const RSS_LOCK_TTL_SECONDS = 120;
 
 interface ParsedFeed {
   title: string;

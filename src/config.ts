@@ -2,6 +2,7 @@ export const WEBHOOK_PATH = "/endpoint";
 
 export const GEMINI_MODEL = "gemini-3-flash-preview";
 export const GEMINI_REQUEST_TIMEOUT_MS = 4000;
+export const GEMINI_SUMMARY_REQUEST_TIMEOUT_MS = 20000;
 export const MEDIA_DOWNLOAD_TIMEOUT_MS = 4000;
 export const GEMINI_MAX_RETRIES = 2;
 
