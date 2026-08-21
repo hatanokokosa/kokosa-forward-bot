@@ -6,11 +6,11 @@ default:
 
 # Format (Prettier)
 fmt:
-    bun run format
+    pnpm run format
 
 # Type check
 typecheck:
-    bun run typecheck
+    pnpm run typecheck
 
 # Tail Worker logs with Node-based Wrangler
 tail:

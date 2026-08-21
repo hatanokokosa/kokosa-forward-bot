@@ -4,7 +4,7 @@
 
 ## 依赖
 
-- Bun
+- pnpm
 - Node.js 20+，用于 Wrangler CLI
 - Cloudflare 账号
 - 从 [@BotFather](https://t.me/BotFather) 获取的 Telegram Bot Token
@@ -17,7 +17,7 @@
 ```bash
 git clone https://github.com/hatanokokosa/kokosa-forward-bot.git
 cd kokosa-forward-bot
-bun install
+pnpm install
 ```
 
 2. 创建 KV：
@@ -52,7 +52,7 @@ crons = ["*/30 * * * *"]
 4. 部署：
 
 ```bash
-bun run deploy
+pnpm run deploy
 ```
 
 5. 注册 webhook 和命令：
@@ -96,7 +96,7 @@ nix shell nixpkgs#nodejs -c npx wrangler tail
 ## 说明
 
 - `wrangler.toml` 只保留在本地即可，仓库已经忽略它。
-- 优先用 Node.js 下的 `npx wrangler ...`，不要用 `bunx wrangler ...`。
+- wrangler 跑在 Node.js 下:优先用 `pnpm exec wrangler ...`(或 `npx wrangler ...`)。
 - 多语言文件在 `src/i18n/` 下，每种语言一个文件。
 - RSS 会通过 Cloudflare Cron 每 30 分钟检查一次。测试时可以使用
   `/rss_refresh [id]` 手动刷新。

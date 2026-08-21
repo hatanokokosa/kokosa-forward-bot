@@ -1,0 +1,10 @@
+# pnpm 11:构建脚本白名单(每个包名/匹配模式 -> true=允许执行 install/postinstall 脚本)
+# 默认(pnpm 10/11)为供应链安全会拦截依赖的构建脚本,不在白名单内的包会报 ERR_PNPM_IGNORED_BUILDS。
+# 下方三个包均为 wrangler 正常运行所必需,参照 Cloudflare 官方 workers-sdk 仓库的同样配置:
+#   https://github.com/cloudflare/workers-sdk/blob/main/pnpm-workspace.yaml
+#
+# 注意:本仓库为单包项目(无 packages 子目录),该文件仅用于承载 pnpm 配置。
+allowBuilds:
+  esbuild: true # wrangler 用它打包 Worker 代码(dev/deploy 均需要)
+  workerd: true # Cloudflare Workers 本地运行时二进制(由 miniflare 调用)
+  sharp: true   # miniflare 图像处理依赖的预编译二进制

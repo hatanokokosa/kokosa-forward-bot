@@ -6,7 +6,7 @@ A private Telegram forward bot built on Cloudflare Workers. Guest messages are f
 
 ## Requirements
 
-- Bun
+- pnpm
 - Node.js 20+ for Wrangler CLI
 - Cloudflare account
 - Telegram bot token from [@BotFather](https://t.me/BotFather)
@@ -19,7 +19,7 @@ A private Telegram forward bot built on Cloudflare Workers. Guest messages are f
 ```bash
 git clone https://github.com/hatanokokosa/kokosa-forward-bot.git
 cd kokosa-forward-bot
-bun install
+pnpm install
 ```
 
 2. Create KV:
@@ -54,7 +54,7 @@ crons = ["*/30 * * * *"]
 4. Deploy:
 
 ```bash
-bun run deploy
+pnpm run deploy
 ```
 
 5. Register webhook and commands:
@@ -98,7 +98,7 @@ Guest:
 ## Notes
 
 - `wrangler.toml` should stay local; this repo already ignores it.
-- Prefer `npx wrangler ...` under Node.js instead of `bunx wrangler ...`.
+- Wrangler runs under Node.js: use `pnpm exec wrangler ...` (or `npx wrangler ...`).
 - Languages live under `src/i18n/`, one file per language.
 - RSS checks run from Cloudflare Cron every 30 minutes. Use
   `/rss_refresh [id]` to test manually.
