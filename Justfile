@@ -14,7 +14,7 @@ typecheck:
 
 # Tail Worker logs with Node-based Wrangler
 tail:
-    nix shell nixpkgs#nodejs -c npx wrangler tail
+    npx wrangler tail
 
 # Register webhook and commands
 reg url secret:

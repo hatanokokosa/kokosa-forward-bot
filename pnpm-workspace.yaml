@@ -7,4 +7,4 @@
 allowBuilds:
   esbuild: true # wrangler 用它打包 Worker 代码(dev/deploy 均需要)
   workerd: true # Cloudflare Workers 本地运行时二进制(由 miniflare 调用)
-  sharp: true   # miniflare 图像处理依赖的预编译二进制
+  sharp: true # miniflare 图像处理依赖的预编译二进制
