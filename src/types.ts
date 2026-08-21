@@ -67,8 +67,7 @@ export interface TelegramApiFailure {
 }
 
 export type TelegramApiResponse<Result> =
-  | TelegramApiSuccess<Result>
-  | TelegramApiFailure;
+  TelegramApiSuccess<Result> | TelegramApiFailure;
 
 export interface TelegramFile {
   file_path: string;
