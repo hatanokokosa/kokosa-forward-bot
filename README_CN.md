@@ -78,7 +78,6 @@ nix shell nixpkgs#nodejs -c npx wrangler tail
 - `/unban`
 - `/trust`
 - `/untrust`
-- `/status`
 - `/check`
 - `/rss_add`
 - `/rss_list`

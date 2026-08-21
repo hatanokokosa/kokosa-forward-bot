@@ -35,8 +35,6 @@ const en = {
   untrusted:
     "Untrusted: {guestId} ({username})\nThis user will be checked by AI again.",
   unblocked: "Unbanned: {guestId}",
-  user_status:
-    "User: {guestId} ({username})\nBlocked: {blocked}\nRelay: {status}",
   content_check: "Content Check: {status}",
   image_check: "Image Check: {status}",
   no_content_to_check: "No content to check.",

@@ -75,24 +75,6 @@ const replyUnblock = async (ctx: HandlerContext, relay: RelayRecord) => {
   );
 };
 
-const replyStatus = async (ctx: HandlerContext, relay: RelayRecord) => {
-  const blocked = await isGuestBlocked(ctx.kv, relay.guestId);
-  return sendToAdmin(
-    ctx.telegram,
-    ctx.adminId,
-    t(
-      "user_status",
-      {
-        guestId: relay.guestId,
-        username: relay.guestUsername,
-        blocked: blocked ? "Yes" : "No",
-        status: relay.status,
-      },
-      ctx.lang,
-    ),
-  );
-};
-
 const replyCheck = async (
   ctx: HandlerContext,
   relay: RelayRecord,
@@ -175,10 +157,6 @@ const REPLY_COMMANDS: Record<
   },
   "/unban": {
     handler: (ctx, relay) => replyUnblock(ctx, relay),
-    needsMsg: false,
-  },
-  "/status": {
-    handler: (ctx, relay) => replyStatus(ctx, relay),
     needsMsg: false,
   },
   "/check": {

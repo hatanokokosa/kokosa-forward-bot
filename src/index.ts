@@ -25,7 +25,6 @@ const ADMIN_COMMANDS: TelegramCommand[] = [
     command: "untrust",
     description: "Remove from whitelist (reply to message)",
   },
-  { command: "status", description: "Check user status (reply to message)" },
   { command: "check", description: "AI check text/image (reply to message)" },
   { command: "rss_add", description: "Add RSS feed" },
   { command: "rss_list", description: "List RSS feeds" },

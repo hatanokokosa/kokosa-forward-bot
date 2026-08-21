@@ -33,8 +33,6 @@ const zh = {
   trusted: "已信任: {guestId} ({username})\n该用户将跳过AI审核",
   untrusted: "已取消信任: {guestId} ({username})\n该用户将重新接受AI审核",
   unblocked: "已解封: {guestId}",
-  user_status:
-    "用户: {guestId} ({username})\n封禁状态: {blocked}\n会话状态: {status}",
   content_check: "内容检查: {status}",
   image_check: "图片检查: {status}",
   no_content_to_check: "没有可检查的内容",

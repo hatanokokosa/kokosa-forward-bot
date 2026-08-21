@@ -80,7 +80,6 @@ Admin:
 - `/unban`
 - `/trust`
 - `/untrust`
-- `/status`
 - `/check`
 - `/rss_add`
 - `/rss_list`
