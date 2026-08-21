@@ -19,13 +19,13 @@
   "license": "BSD-2-Clause",
   "packageManager": "pnpm@11.21.0",
   "devDependencies": {
-    "@cloudflare/workers-types": "4.20260415.1",
-    "globals": "16.5.0",
-    "prettier": "3.7.4",
-    "typescript": "5.9.3",
-    "wrangler": "4.55.0"
+    "@cloudflare/workers-types": "5.20260821.1",
+    "globals": "17.11.0",
+    "prettier": "3.9.6",
+    "typescript": "7.0.2",
+    "wrangler": "4.125.0"
   },
   "dependencies": {
-    "fast-xml-parser": "5.7.3"
+    "fast-xml-parser": "5.11.0"
   }
 }
