@@ -101,3 +101,10 @@ Guest:
 - Languages live under `src/i18n/`, one file per language.
 - RSS checks run from Cloudflare Cron every 30 minutes. Use
   `/rss_refresh [id]` to test manually.
+- Adding a feed marks all existing articles as processed. Deduplication retains
+  every processed article still in the feed, plus up to 50 recently retained
+  articles no longer present. Failed deliveries remain eligible for retry.
+- Upgrading from the old 50-article history may send previously forgotten
+  articles once while rebuilding history. To skip those old articles, remove
+  and re-add the affected feed (reapply any custom title).
+- RSS regression checks: `node --test tests/rss.test.mjs` (Node.js 24+).

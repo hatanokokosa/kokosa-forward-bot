@@ -300,7 +300,7 @@ async function putSeenItems(
 ): Promise<void> {
   await kv.put(
     getSeenKey(id),
-    JSON.stringify(Array.from(new Set(seen)).slice(0, RSS_SEEN_LIMIT)),
+    JSON.stringify(Array.from(new Set(seen))),
   );
 }
 
@@ -393,7 +393,7 @@ export async function addRssFeed(
   };
 
   const seen = await Promise.all(
-    parsed.items.slice(0, RSS_SEEN_LIMIT).map((item) => itemKey(item)),
+    parsed.items.map((item) => itemKey(item)),
   );
 
   await kv.put(getFeedKey(feed.id), JSON.stringify(feed));
@@ -493,10 +493,15 @@ async function refreshOneFeed(
       }
     }
 
+    const currentKeys = new Set(itemsWithKeys.map(({ key }) => key));
     const alreadySeenCurrentKeys = itemsWithKeys
       .map(({ key }) => key)
       .filter((key) => previousSeenSet.has(key));
-    const nextSeen = [...sentKeys, ...alreadySeenCurrentKeys, ...previousSeen];
+    // Never evict a processed item while it is still present in the feed.
+    const recentAbsentKeys = previousSeen
+      .filter((key) => !currentKeys.has(key))
+      .slice(0, RSS_SEEN_LIMIT);
+    const nextSeen = [...sentKeys, ...alreadySeenCurrentKeys, ...recentAbsentKeys];
     const nextFeed: RssFeed = {
       ...feed,
       sourceTitle: parsed.title,
